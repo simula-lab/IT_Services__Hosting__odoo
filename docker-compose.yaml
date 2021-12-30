@@ -1,0 +1,69 @@
+---
+# Inspired by:
+# https://computingforgeeks.com/install-odoo-ubuntu-focal-with-lets-encrypt-ssl/
+# Using information from:
+# https://docs.docker.com/compose/compose-file/compose-file-v3/
+# https://github.com/odoo/docker/blob/master/14.0/odoo.conf
+# https://computingforgeeks.com/install-odoo-ubuntu-focal-with-lets-encrypt-ssl/
+# https://hub.docker.com/_/odoo
+# https://hub.docker.com/_/postgres
+# https://hub.docker.com/_/nginx
+version: '3'
+services:
+    odoo:
+        container_name: odoo
+          #        image: odoo:latest
+        build: odoo
+        volumes:
+            - ./addons-extra:/mnt/extra-addons
+            # https://github.com/odoo/docker/blob/master/14.0/odoo.conf
+            - ./etc/odoo:/etc/odoo
+            - odoo-web-data:/var/lib/odoo
+        ports:
+            - "8069:8069"
+            - "8071:8071"
+            - "8072:8072"
+        depends_on:
+            - db
+        restart: unless-stopped
+    db:
+        container_name: db
+        image: postgres:latest
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: "odoo"
+            POSTGRES_USER: "odoo"
+            POSTGRES_DB: "postgres"
+        volumes:
+            - database-data:/var/lib/postgresql/data/
+    nginx:
+        container_name: nginx
+        image: nginx:latest
+        restart: unless-stopped
+        depends_on:
+            - odoo
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - ./etc/nginx/conf.d:/etc/nginx/conf.d
+            - ./etc/letsencrypt:/etc/letsencrypt
+            # ./certbot/conf:/etc/nginx/ssl
+            - ./certbot/data:/var/www/html
+            - /var/log/nginx:/var/log/nginx
+    certbot:
+        container_name: certbot
+        image: certbot/certbot:latest
+        depends_on:
+            - nginx
+        command: >-
+                certonly --reinstall --webroot --webroot-path=/var/www/html
+                --email it@simulalab.org --agree-tos --no-eff-email
+                -d odoo.simulalab.org
+        volumes:
+            - ./etc/letsencrypt:/etc/letsencrypt
+            - ./certbot/data:/var/www/html
+    
+volumes:
+    odoo-web-data:
+    database-data:

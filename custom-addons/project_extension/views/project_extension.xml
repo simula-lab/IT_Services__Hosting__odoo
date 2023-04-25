@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="project_extension_view_form" model="ir.ui.view">
+        <field name="name">project_extension.view_form_extension</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <field name="label_tasks" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <page name="settings" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </page>
+            <xpath expr="//sheet[1]/group[1]" position="after">
+                <group name="additional_info" string="Additional Info">
+                    <field name="official_project_title"/>
+                    <field name="contact_reference_number"/>
+                    <field name="contract_link"/>
+                    <field name="project_contract_signed_date"/>
+                    <field name="project_start_date"/>
+                    <field name="project_expected_closure_date"/>
+                    <field name="project_actual"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

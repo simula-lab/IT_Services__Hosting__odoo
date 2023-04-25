@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_company_contact,access.company.contact,model_company_contact,,1,1,1,1
+access_individual_contact,access.individual.contact,model_individual_contact,,1,1,1,1

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="view_website_opportunities_form" model="ir.ui.view">
+        <field name="name">website_opportunities.form</field>
+        <field name="model">website.opportunities</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group name="character_items">
+                        <field name="name"/>
+                        <field name="type"/>
+                        <field name="website"/>
+                        <field name="countries"/>
+                        <field name="agencies_domain"/>
+                        <field name="organization_domains"/>
+                        <field name="price_per_year"/>
+                        <field name="book_mark"/>
+                    </group>
+                    <group name="text_items">
+                        <field name="project_types"/>
+                        <field name="about"/>
+                        <field name="last_check"/>
+                        <field name="two_weeks_insight"/>
+                    </group>
+                </group>
+
+            </form>
+        </field>
+  </record>
+</odoo>

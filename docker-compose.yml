@@ -1,0 +1,46 @@
+version: '3.5'
+services:
+  odoo:
+    image: odoo:${ODOO_VERSION}
+    depends_on:
+      - postgresql
+    ports:
+      - "8069:8069"
+    volumes:
+      - odoo-data:/var/lib/odoo
+      - ./custom-addons:/mnt/extra-addons
+    environment:
+      - PASSWORD_FILE=/run/secrets/postgresql_password
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - VIRTUAL_PORT=8069
+      - LETSENCRYPT_HOST=${VIRTUAL_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+    secrets:
+      - postgresql_password
+    networks:
+      - odoo
+      - proxy 
+  postgresql:
+    image: postgres:${POSTGRESQL_VERSION}
+    environment:
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgresql_password
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data/pgdata
+    secrets:
+      - postgresql_password
+    networks:
+      - odoo
+volumes:
+  odoo-web-data:
+  odoo-db-data:
+
+networks:
+  odoo:
+  proxy:
+    external: true
+    name: http-proxy_backend
+
+secrets:
+  postgresql_password:
+    file: .odoo_pg_pass

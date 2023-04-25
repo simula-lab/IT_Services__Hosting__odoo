@@ -31,9 +31,10 @@ services:
       - postgresql_password
     networks:
       - odoo
+
 volumes:
-  odoo-web-data:
-  odoo-db-data:
+  odoo-data:
+  postgresql-data:
 
 networks:
   odoo:

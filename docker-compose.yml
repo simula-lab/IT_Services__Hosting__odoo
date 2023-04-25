@@ -11,6 +11,8 @@ services:
       - ./extra-addons:/mnt/extra-addons
     environment:
       - PASSWORD_FILE=/run/secrets/postgresql_password
+      - HOST=postgresql
+      - USER=postgres
       - VIRTUAL_HOST=${VIRTUAL_HOST}
       - VIRTUAL_PORT=8069
       - LETSENCRYPT_HOST=${VIRTUAL_HOST}
@@ -23,6 +25,8 @@ services:
   postgresql:
     image: postgres:${POSTGRESQL_VERSION}
     environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD_FILE=/run/secrets/postgresql_password
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:

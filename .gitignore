@@ -40,3 +40,6 @@ build
 #tox
 .tox
 
+# secrets
+.odoo_pg_pass
+

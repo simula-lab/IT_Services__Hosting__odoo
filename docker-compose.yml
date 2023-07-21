@@ -5,6 +5,7 @@ services:
     build:
     	context: .
 	dockerfile: ./Dockerfile
+    restart: always
     depends_on:
       - postgresql
     ports:
@@ -23,9 +24,11 @@ services:
       - postgresql_password
     networks:
       - odoo
-      - proxy 
+      - proxy
+
   postgresql:
     image: postgres:${POSTGRESQL_VERSION}
+    restart: always
     environment:
       - POSTGRES_USER=odoo
       - POSTGRES_DB=postgres

@@ -2,6 +2,7 @@ version: '3.5'
 services:
   odoo:
     image: odoo:${ODOO_VERSION}
+    restart: always
     depends_on:
       - postgresql
     ports:
@@ -23,6 +24,7 @@ services:
       - proxy 
   postgresql:
     image: postgres:${POSTGRESQL_VERSION}
+    restart: always
     environment:
       - POSTGRES_USER=odoo
       - POSTGRES_DB=postgres

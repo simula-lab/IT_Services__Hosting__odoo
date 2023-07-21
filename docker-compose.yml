@@ -2,6 +2,9 @@ version: '3.5'
 services:
   odoo:
     image: odoo:${ODOO_VERSION}
+    build:
+    	context: .
+	dockerfile: ./Dockerfile
     depends_on:
       - postgresql
     ports:

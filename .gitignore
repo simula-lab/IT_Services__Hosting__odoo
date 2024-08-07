@@ -43,3 +43,5 @@ build
 # secrets
 .odoo_pg_pass
 
+# addons
+extra-addons*

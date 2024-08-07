@@ -1,10 +1,13 @@
-version: '3.5'
+---
 services:
   odoo:
-    image: odoo:${ODOO_VERSION}
+    image: odoo:${ODOO_VERSION:-17}
     build:
-    	context: .
-	dockerfile: ./Dockerfile
+      context: .
+      args:
+          ODOO_VERSION: ${ODOO_VERSION:-17}
+      dockerfile: ./Dockerfile
+
     restart: always
     depends_on:
       - postgresql
@@ -49,7 +52,7 @@ networks:
   odoo:
   proxy:
     external: true
-    name: http-proxy_backend
+    name: http-proxy_proxy
 
 secrets:
   postgresql_password:

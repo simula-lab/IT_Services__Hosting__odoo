@@ -1,3 +1,0 @@
-from .comapny_contact_extension import ComapnyContact
-from  .individual_contact_extension import IndividualContact
-from .contact_extension import ContactExtension

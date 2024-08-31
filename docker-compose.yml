@@ -2,6 +2,7 @@
 services:
   odoo:
     image: odoo:${ODOO_VERSION:-17}
+    container_name: odoo
     build:
       context: .
       args:
@@ -31,6 +32,7 @@ services:
 
   postgresql:
     image: postgres:${POSTGRESQL_VERSION}
+    container_name: postgresql
     restart: always
     environment:
       - POSTGRES_USER=odoo

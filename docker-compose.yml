@@ -1,14 +1,13 @@
 ---
 services:
   odoo:
-    image: odoo:${ODOO_VERSION:-17}
+    image: simula-odoo:${ODOO_VERSION:-17.0}
     container_name: odoo
     build:
-      context: .
-      args:
-          ODOO_VERSION: ${ODOO_VERSION:-17}
-      dockerfile: ./Dockerfile
-
+        context: .
+        dockerfile: ./Dockerfile
+        args:
+          ODOO_VERSION: ${ODOO_VERSION:-17.0}
     restart: always
     depends_on:
       - postgresql
@@ -31,7 +30,7 @@ services:
       - proxy
 
   postgresql:
-    image: postgres:${POSTGRESQL_VERSION}
+    image: postgres:${POSTGRESQL_VERSION:-latest}
     container_name: postgresql
     restart: always
     environment:

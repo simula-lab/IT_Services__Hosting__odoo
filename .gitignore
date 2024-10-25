@@ -1,47 +1,9 @@
-# Byte-compiled / optimized / DLL files
-*__pycache__
+# ignore mounted extra addons 
+extra_addons
 
-# Mac OS X
+# macos
 .DS_Store
 
-# Environment variables
+# local configuration files
 .env
-
-# Virtual Environment
-virtual
-venv
-
-
-# IDEs
-## Pycharm files
-.idea
-## VSCodium
-.vscode
-
-# Python compiled files
-*.pyc
-
-# distutil
-## MANIFEST
-MANIFEST
-## the egg
-*.egg-info/
-build
-
-#Jupyter
-
-#ipython
-.ipynb_checkpoints
-
-#pytest
-.coverage
-.coverage*
-
-#tox
-.tox
-
-# secrets
 .odoo_pg_pass
-
-# addons
-extra-addons*
